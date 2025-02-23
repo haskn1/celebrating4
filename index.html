@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>52 Things I Love About You</title>
+  <link rel="icon" type="image/png" href="pictures/heart.png"> <!-- Updated favicon -->
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #e6e6fa;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #ff69b4;
+      border-radius: 5px;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      background: linear-gradient(-45deg, #e6e6fa, #2c3e50, #e6e6fa, #2c3e50);
+      background-size: 400% 400%;
+      animation: gradientAnimation 10s ease infinite;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .card-container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    .card {
+      position: absolute;
+      width: 350px;
+      height: 500px;
+      border-radius: 10px;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+      transform-style: preserve-3d;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(148, 0, 211, 0.3);
+      z-index: 1;
+    }
+
+    .card.front::before {
+      background-color: rgba(148, 0, 211, 0.3);
+    }
+
+    .card.back::before {
+      background-color: rgba(255, 105, 180, 0.3);
+    }
+
+    .card.front {
+      background-image: url('https://i.imgur.com/ii31SS9.png');
+      flex-direction: column;
+    }
+
+    .card.back {
+      background-image: url('https://i.imgur.com/3KJ24ao.png');
+      animation: fadeIn 0.6s ease-in-out; /* Fade-in animation for new cards */
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    .title {
+      font-size: 25px;
+      font-weight: bold;
+      color: #f8f9f9;
+      text-align: center;
+      margin: 0;
+      z-index: 2;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .cursive {
+      font-family: 'Parisienne', cursive;
+      font-size: 40px;
+      color: #f8f9f9;
+      margin: 10px 0 0 0;
+      z-index: 2;
+    }
+
+    .reason {
+      font-size: 28px;
+      color: #333;
+      font-family: 'Cormorant Garamond', serif;
+      padding: 20px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      box-sizing: border-box;
+      z-index: 2;
+    }
+
+    @keyframes throwLeft {
+      0% { transform: translateX(0) rotate(0); opacity: 1; }
+      100% { transform: translateX(-1000px) rotate(-30deg); opacity: 0; }
+    }
+
+    @keyframes throwRight {
+      0% { transform: translateX(0) rotate(0); opacity: 1; }
+      100% { transform: translateX(1000px) rotate(30deg); opacity: 0; }
+    }
+
+    #progress {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 14px; /* Smaller progress counter */
+      z-index: 3;
+    }
+
+    #restart-button, #share-button {
+      position: absolute;
+      bottom: 20px;
+      padding: 6px 12px; /* Smaller padding */
+      font-size: 12px; /* Smaller font size */
+      border: none;
+      border-radius: 5px;
+      background-color: rgba(255, 105, 180, 0.3); /* Less opacity */
+      color: white;
+      cursor: pointer;
+      z-index: 3;
+      opacity: 0.5; /* Less opacity */
+    }
+
+    #restart-button {
+      right: 20px;
+    }
+
+    #share-button {
+      left: 20px;
+    }
+
+    #restart-button:hover, #share-button:hover {
+      opacity: 0.8; /* Slightly more opacity on hover */
+    }
+
+    /* Signature Styling */
+    .signature {
+      position: absolute;
+      font-size: 18px;
+      color: black;
+      z-index: 4;
+      /* Adjust these values to move the signature */
+      bottom: 36%; /* Default position: 20px from the bottom */
+      right: 5%;  /* Default position: 20px from the right */
+    }
+
+    /* Slide Gesture Hint */
+    .slide-hint {
+      position: absolute;
+      bottom: 2px; /* Positioned at the very very bottom */
+      left: 50%;
+      transform: translateX(-50%);
+      color: white; /* Changed to white */
+      font-size: 12px; /* Smaller font size */
+      font-family: 'Cormorant Garamond', serif;
+      opacity: 0.8;
+      animation: slideHintAnimation 2s infinite;
+      z-index: 9999; /* Ensure it's always on top */
+    }
+
+    @keyframes slideHintAnimation {
+      0% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-5px); }
+      100% { transform: translateX(-50%) translateY(0); }
+    }
+
+    /* Love-Themed Print Style */
+    @media print {
+      body {
+        background: white;
+        color: black;
+        font-family: 'Cormorant Garamond', serif;
+      }
+      .card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Parisienne&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Main Content -->
+  <div id="content">
+    <div class="card-container">
+      <div class="card front" id="front-card">
+        <p class="title">52 Things I Love About You,</p>
+        <p class="cursive">Miah</p>
+        <div class="slide-hint">Swipe to continue →</div> <!-- Slide gesture hint -->
+      </div>
+    </div>
+    <div id="progress">1</div>
+    <button id="restart-button" style="display: none;" title="Start Over">Restart</button>
+    <button id="share-button" style="display: none;" title="Share the Love">Share This</button>
+  </div>
+
+  <!-- Audio Elements -->
+  <audio id="card-sound" src="sounds/flip.mp3" preload="auto"></audio>
+  <audio id="background-music" src="sounds/song.mp3" loop preload="auto"></audio>
+  <audio id="confetti-sound" src="sounds/confetti.mp3" preload="auto"></audio> <!-- Confetti sound -->
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+  <script>
+    // Background Music
+    const backgroundMusic = document.getElementById('background-music');
+    backgroundMusic.volume = 0.3; // Set volume to 30%
+
+    // Try to play background music immediately on page load
+    backgroundMusic.play().catch(error => {
+      console.log('Autoplay failed, waiting for user interaction.');
+    });
+
+    // Stop music after 1 minute
+    setTimeout(() => {
+      backgroundMusic.pause();
+    }, 60000); // 60 seconds
+
+    // Pause music when the page is hidden
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        backgroundMusic.pause();
+      } else {
+        backgroundMusic.play();
+      }
+    });
+
+    // Card Functionality
+    const reasons = [
+      "your beautiful smile",
+      "the way you look at me",
+      "how you always make me feel loved",
+      "your voice, whether you're talking or laughing",
+      "the way you care about others",
+      "how wonderful of a girlfriend, wifey and best friend you are",
+      "how you support me no matter what",
+      "the little things you do to show you care",
+      "your sense of humor",
+      "how you make even boring days special",
+      "your kindness and big heart",
+      "the way you say my name",
+      "how you believe in me",
+      "the cute way you get excited about things",
+      "how i couldn't ask for a better partner to spend my life with",
+      "how you make me feel safe and at home",
+      "how you get when you're drunk",
+      "how you listen to me",
+      "the way you talk about our future",
+      "your patience with me",
+      "how great of a mother you are, to icelyn (and undoubtly to our future kids)",
+      "how you motivate me to be better",
+      "your favorite things and how you share them with me",
+      "how you trust me",
+      "your little quirks that make you unique",
+      "the way you randomly make my day better",
+      "how you still choose me every day",
+      "your love for butterflies",
+      "how you’re always there when I need you",
+      "your passion for what you do",
+      "the way you comfort me when I’m feeling down",
+      "how you understand me in ways no one else does",
+      "your sleepy voice",
+      "the way you miss me even when we just talked",
+      "your honesty, even when it’s tough",
+      "how you make me laugh even on bad days",
+      "the way you let me be myself around you",
+      "how you get excited about my achievements",
+      "your soft and caring nature",
+      "the way you remember little details about me",
+      "how you make me feel like the luckiest guy in the world",
+      "the way you make the distance feel less painful",
+      "your loyalty and commitment",
+      "how you make even texting feel special",
+      "your cute habits",
+      "the way you love me in your own unique way",
+      "how you make even arguments worth working through",
+      "your strong and independent nature",
+      "the way you see the best in me",
+      "how you’re the best thing that’s ever happened to me",
+      "the fact that you’re my miah",
+      "because no matter what, I wouldn’t want anyone else"
+    ];
+
+    const cardContainer = document.querySelector('.card-container');
+    const progress = document.getElementById('progress');
+    const restartButton = document.getElementById('restart-button');
+    const shareButton = document.getElementById('share-button');
+    const cardSound = document.getElementById('card-sound');
+    const confettiSound = document.getElementById('confetti-sound');
+    const slideHint = document.querySelector('.slide-hint');
+    let currentIndex = 0;
+    let isAnimating = false;
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    // Handle Swipe Gestures
+    cardContainer.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+    });
+
+    cardContainer.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].clientX;
+      handleSwipe();
+    });
+
+    function handleSwipe() {
+      if (isAnimating) return;
+
+      const swipeDistance = touchEndX - touchStartX;
+      const swipeThreshold = 50; // Minimum distance to consider it a swipe
+
+      if (swipeDistance > swipeThreshold) {
+        // Swiped right: go back (only if not on the first slide)
+        if (currentIndex > 0) {
+          currentIndex--;
+          updateCard('throwRight'); // Throw card to the right
+        }
+      } else if (swipeDistance < -swipeThreshold) {
+        // Swiped left: go forward
+        if (currentIndex < reasons.length) {
+          currentIndex++;
+          updateCard('throwLeft'); // Throw card to the left
+        }
+      }
+
+      // Start playing background music on the first swipe if it hasn't started yet
+      if (backgroundMusic.paused) {
+        backgroundMusic.play().catch(error => {
+          console.error('Failed to play background music:', error);
+        });
+      }
+    }
+
+    // Update Card and Progress
+    function updateCard(animation) {
+      if (currentIndex < 0 || currentIndex > reasons.length) return;
+
+      isAnimating = true;
+
+      const newCard = document.createElement('div');
+      newCard.className = 'card back';
+      newCard.innerHTML = `<p class="reason">${reasons[currentIndex]}</p>`;
+      cardContainer.appendChild(newCard);
+
+      const frontCard = document.getElementById('front-card');
+      frontCard.style.animation = `${animation} 0.6s ease-in-out forwards`;
+
+      // Play the flip sound when the animation starts
+      cardSound.currentTime = 0; // Reset sound to start
+      cardSound.play().catch(error => {
+        console.error('Failed to play card sound:', error);
+      });
+
+      frontCard.addEventListener('animationend', () => {
+        frontCard.remove();
+        newCard.id = 'front-card';
+        isAnimating = false;
+      });
+
+      // Update progress
+      progress.textContent = `${currentIndex + 1}`; // Simplified progress indicator
+
+      // Hide slide hint after the first swipe
+      if (currentIndex > 0) {
+        slideHint.style.display = 'none';
+      }
+
+      // Handle final card
+      if (currentIndex === reasons.length) {
+        const finalCard = document.createElement('div');
+        finalCard.className = 'card back final-card';
+        finalCard.innerHTML = `
+          <p class="reason">Happy four months anniversary, my princess!<br>
+          I love you so much! 🤍</p>
+          <div class="signature">-hasan</div>
+        `;
+        cardContainer.appendChild(finalCard);
+
+        // Play confetti sound and animation
+        confettiSound.play().catch(error => {
+          console.error('Failed to play confetti sound:', error);
+        });
+        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+
+        restartButton.style.display = 'block';
+        shareButton.style.display = 'block';
+      }
+    }
+
+    restartButton.addEventListener('click', () => {
+      location.reload();
+    });
+
+    shareButton.addEventListener('click', () => {
+      if (navigator.share) {
+        navigator.share({
+          title: '52 Things I Love About You',
+          text: 'Check out this beautiful love note!',
+          url: window.location.href
+        });
+      } else {
+        alert('Sharing is not supported in your browser.');
+      }
+    });
+  </script>
+</body>
+</html>
